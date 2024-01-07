@@ -1,14 +1,7 @@
 ﻿using AmazePay.Model;
 using AmazePay.Repository;
 using AmazePay.Security;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
-using System.Configuration;
-using System.Data;
-using System.Reflection;
 using System.Security.Cryptography;
 
 namespace AmazePay.Controller
