@@ -67,72 +67,74 @@ namespace AmazePay.Repository
         /// Method to execute procedure with parameter
         /// </summary>
         /// <returns>Dataset</returns>
-        public virtual DataSet ExecuteProcedure(string strProcedureName, object listdata)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(strProcedureName))
-                    throw new ArgumentNullException("Procedure Name is null or empty");
-                _sqlCommand.CommandText = strProcedureName;
-                _sqlCommand.Connection = _sqlConnection;
-                _sqlCommand.CommandType = CommandType.StoredProcedure;
+       
+        //public virtual DataSet ExecuteProcedure(string strProcedureName, object listdata)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(strProcedureName))
+        //            throw new ArgumentNullException("Procedure Name is null or empty");
+        //        _sqlCommand.CommandText = strProcedureName;
+        //        _sqlCommand.Connection = _sqlConnection;
+        //        _sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                _sqlCommand.Parameters.Clear();
-                foreach (PropertyInfo propertyInfo in listdata.GetType().GetProperties())
-                {
-                    object value = propertyInfo.GetValue(listdata, null);
-                    if (value != null)
-                        _sqlCommand.Parameters.AddWithValue("@" + propertyInfo.Name, propertyInfo.GetValue(listdata));
-                }
-                _sqlCommand.CommandTimeout = 100000;
-                _sqlDataAdater.SelectCommand = _sqlCommand;
-                if (_dataSet.Tables.Contains(strProcedureName))
-                    _dataSet.Tables[strProcedureName].Clear();
-                _sqlDataAdater.Fill(_dataSet, strProcedureName);
-            }
-            catch (Exception ex)
-            {
-                _logger.WriteErrorToFile("Error while accessing database in method: ExecuteProcedure(string,object) error message: " + ex.Message);
-            }
-            return _dataSet;
-        }
+        //        _sqlCommand.Parameters.Clear();
+        //        foreach (PropertyInfo propertyInfo in listdata.GetType().GetProperties())
+        //        {
+        //            object value = propertyInfo.GetValue(listdata, null);
+        //            if (value != null)
+        //                _sqlCommand.Parameters.AddWithValue("@" + propertyInfo.Name, propertyInfo.GetValue(listdata));
+        //        }
+        //        _sqlCommand.CommandTimeout = 100000;
+        //        _sqlDataAdater.SelectCommand = _sqlCommand;
+        //        if (_dataSet.Tables.Contains(strProcedureName))
+        //            _dataSet.Tables[strProcedureName].Clear();
+        //        _sqlDataAdater.Fill(_dataSet, strProcedureName);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.WriteErrorToFile("Error while accessing database in method: ExecuteProcedure(string,object) error message: " + ex.Message);
+        //    }
+        //    return _dataSet;
+        //}
 
         /// <summary>
         /// Method to execute procedure with parameter and boolan output
         /// </summary>
         /// <returns>Dataset</returns>
-        public virtual bool ExecuteProcedureBoolOutput(string strProcedureName, object listdata)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(strProcedureName))
-                    throw new ArgumentNullException("Procedure Name is null or empty");
-                _sqlCommand.CommandText = strProcedureName;
-                _sqlCommand.Connection = _sqlConnection;
-                _sqlCommand.CommandType = CommandType.StoredProcedure;
+      
+        //public virtual bool ExecuteProcedureBoolOutput(string strProcedureName, object listdata)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(strProcedureName))
+        //            throw new ArgumentNullException("Procedure Name is null or empty");
+        //        _sqlCommand.CommandText = strProcedureName;
+        //        _sqlCommand.Connection = _sqlConnection;
+        //        _sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                _sqlCommand.Parameters.Clear();
+        //        _sqlCommand.Parameters.Clear();
 
-                foreach (PropertyInfo propertyInfo in listdata.GetType().GetProperties())
-                {
-                    object value = propertyInfo.GetValue(listdata, null);
-                    if (value != null)
-                        _sqlCommand.Parameters.AddWithValue("@" + propertyInfo.Name, propertyInfo.GetValue(listdata));
-                }
-                _sqlCommand.CommandTimeout = 100000;
-                if (_sqlConnection != null && _sqlConnection.State == ConnectionState.Closed)
-                    _sqlConnection.Open();
-                int iCount = _sqlCommand.ExecuteNonQuery();
-                _sqlConnection.Close();
-                return iCount > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.WriteErrorToFile("Error while accessing database error in method: ExecuteProcedureBoolOutput error message: " + ex.Message);
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
+        //        foreach (PropertyInfo propertyInfo in listdata.GetType().GetProperties())
+        //        {
+        //            object value = propertyInfo.GetValue(listdata, null);
+        //            if (value != null)
+        //                _sqlCommand.Parameters.AddWithValue("@" + propertyInfo.Name, propertyInfo.GetValue(listdata));
+        //        }
+        //        _sqlCommand.CommandTimeout = 100000;
+        //        if (_sqlConnection != null && _sqlConnection.State == ConnectionState.Closed)
+        //            _sqlConnection.Open();
+        //        int iCount = _sqlCommand.ExecuteNonQuery();
+        //        _sqlConnection.Close();
+        //        return iCount > 0;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.WriteErrorToFile("Error while accessing database error in method: ExecuteProcedureBoolOutput error message: " + ex.Message);
+        //        Console.WriteLine(ex.Message);
+        //        return false;
+        //    }
+        //}
 
         /// <summary>
         /// Method to execute procedure with parameter and integer output
